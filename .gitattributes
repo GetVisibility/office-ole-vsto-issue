@@ -1,0 +1,4 @@
+# Force shell script line endings to Unux (LF) format because Windows (CR) line
+# endings cause the interpreter to break.
+# See: https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings#per-repository-settings
+*.sh text eol=lf
