@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 using OLEIssue.Common;
 
 namespace OLEIssue.ExcelAddin
@@ -27,52 +27,113 @@ namespace OLEIssue.ExcelAddin
 
         private void Application_WorkbookBeforePrint(Workbook wb, ref bool cancel)
         {
-            Logger.Log().Debug("Workbook WorkbookBeforePrint");
+            try
+            {
+                Logger.Log().Debug("Workbook WorkbookBeforePrint");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WorkbookAfterSave(Workbook wb, bool success)
         {
-            Logger.Log().Debug("Workbook WorkbookAfterSave");
+            try
+            {
+                Logger.Log().Debug("Workbook WorkbookAfterSave");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WorkbookBeforeSave(Workbook wb, bool saveAsUi, ref bool cancel)
         {
-            Logger.Log().Debug("Workbook WorkbookBeforeSave");
+            try
+            {
+                Logger.Log().Debug("Workbook WorkbookBeforeSave");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WorkbookBeforeClose(Workbook wb, ref bool cancel)
         {
-            if (cancel)
+            try
             {
-                return;
+                if (cancel) return;
+                Logger.Log().Debug("Workbook BeforeClose");
             }
-
-            Logger.Log().Debug("Workbook BeforeClose");
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WorkbookNewSheet(Workbook wb, object sh)
         {
-            Logger.Log().Debug("Workbook WorkbookNewSheet");
+            try
+            {
+                Logger.Log().Debug("Workbook WorkbookNewSheet");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WorkbookOpen(Workbook wb)
         {
-            Logger.Log().Debug("Workbook WorkbookOpen");
+            try
+            {
+                Logger.Log().Debug("Workbook WorkbookOpen");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_NewWorkbook(Workbook wb)
         {
-            Logger.Log().Debug("Workbook NewWorkbook");
+            try
+            {
+                Logger.Log().Debug("Workbook NewWorkbook");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+            }
         }
 
         private void Application_WindowActivate(Workbook wb, Window wn)
         {
-            Logger.Log().Debug("Workbook WindowActivate");
+            try
+            {
+                Logger.Log().Debug("Workbook WindowActivate");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+                OfficeUtils.ConditionalReleaseComObject(wn);
+            }
         }
 
         private void Application_WindowDeactivate(Workbook wb, Window wn)
         {
-            Logger.Log().Debug("Workbook WindowDeactivate");
+            try
+            {
+                Logger.Log().Debug("Workbook WindowDeactivate");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(wb);
+                OfficeUtils.ConditionalReleaseComObject(wn);
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)

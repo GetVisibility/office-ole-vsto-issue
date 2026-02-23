@@ -1,4 +1,4 @@
-﻿using Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
 using OLEIssue.Common;
 
 namespace OLEIssue.WordAddin
@@ -25,52 +25,91 @@ namespace OLEIssue.WordAddin
 
         private void Application_OnNewDocument(Document doc)
         {
-            Logger.Log().Debug("Document OnNewDocument");
+            try
+            {
+                Logger.Log().Debug("Document OnNewDocument");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+            }
         }
 
         private void Application_DocumentOpen(Document doc)
         {
-            Logger.Log().Debug("Document DocumentOpen");
+            try
+            {
+                Logger.Log().Debug("Document DocumentOpen");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+            }
         }
 
         private void Application_DocumentBeforeSave(Document doc, ref bool saveAsUiRef, ref bool cancel)
         {
-            if (cancel)
+            try
             {
-                return;
+                if (cancel) return;
+                Logger.Log().Debug("Document BeforeSave");
             }
-
-            Logger.Log().Debug("Document BeforeSave");
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+            }
         }
 
         private void Application_DocumentBeforeClose(Document doc, ref bool cancel)
         {
-            if (cancel)
+            try
             {
-                return;
+                if (cancel) return;
+                Logger.Log().Debug("Document BeforeClose");
             }
-
-            Logger.Log().Debug("Document BeforeClose");
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+            }
         }
 
         private void Application_BeforePrint(Document doc, ref bool cancel)
         {
-            if (cancel)
+            try
             {
-                return;
+                if (cancel) return;
+                Logger.Log().Debug("Document BeforePrint");
             }
-
-            Logger.Log().Debug("Document BeforePrint");
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+            }
         }
 
         private void Application_WindowActivate(Document doc, Window wn)
         {
-            Logger.Log().Debug("Document WindowActivate");
+            try
+            {
+                Logger.Log().Debug("Document WindowActivate");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+                OfficeUtils.ConditionalReleaseComObject(wn);
+            }
         }
 
         private void Application_WindowDeactivate(Document doc, Window wn)
         {
-            Logger.Log().Debug("Document WindowDeactivate");
+            try
+            {
+                Logger.Log().Debug("Document WindowDeactivate");
+            }
+            finally
+            {
+                OfficeUtils.ConditionalReleaseComObject(doc);
+                OfficeUtils.ConditionalReleaseComObject(wn);
+            }
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
